@@ -1,0 +1,102 @@
+* {
+  box-sizing: border-box
+}
+
+body {
+  background: darkslategray;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+}
+
+.start-btn-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.staff{
+  width: 1000px;
+  margin: 10% auto;
+}
+
+.staff-line {
+  height: 30px;
+  margin: -16px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.border.staff-line{
+  border-style: solid none;
+  border-width: 2px;
+}
+
+.whole-note{
+  border-style: solid;
+  border-width: 2px 8px;
+  border-radius: 100%;
+  width: 30px;
+  height: 15px;
+}
+
+.ledger-line .whole-note::before {
+  content: '';
+  display: block;
+  border-bottom: 2px solid;
+  width: 50px;
+  margin-left: -18px;
+  margin-top: 4px;
+}
+
+.keyboard-section{
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%, 0);
+} 
+
+.keyboard {
+  display: flex;
+  justify-content: center;
+  height:350px
+}
+
+.keys {
+  border-style: none solid solid;
+}
+
+.white {
+  background: white;
+  border-width: 0 1px 4px;
+  border-style: none solid solid;
+  width: 80px;
+  height: 340px;
+  z-index: -1;
+}
+
+.black {
+  background:rgb(48, 48, 48);
+  border-width: 0 6px 8px;
+  border-style: none solid solid;
+  border-color: black rgb(31, 31, 31);
+  width: 40px;
+  height: 200px;
+}
+
+#d4, #e4, #g4, #a4, #b4, #d5, .black {
+  margin: 0 0 0 -20px;
+}
+
+.white.is-active{
+  margin-top: 1px;
+  border-width: 0 2px 1px;
+}
+
+.black.is-active{
+  border-color: black rgb(24, 24, 24);
+  border-width: 0 6px 6px;
+}
