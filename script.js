@@ -1,5 +1,19 @@
 // Sheet Music Teacher
 
+/* to-do
+* add rewards
+   animationsdd
+   levels
+    level progress meters
+* add sounds
+   this.audio = new Audio(audio);
+* add music theory explanation
+* improve style
+* improve sharp/flat system
+* add dynamic chord positioning
+    this.lineBefore = domStaffLines[this.staffPosition - 1]
+    this.lineAfter = domStaffLines[this.staffPosition + 1]
+*/
 
 // capture the html keys from the dom
 const cssNotes = document.getElementsByClassName('keys');
@@ -8,45 +22,106 @@ const domStaffLines = document.getElementsByClassName('staff-line');
 
 // create note class
 class Note {
-  constructor(name, index, staffPosition) {
+  constructor(name, index, staffPosition, isSharp) {
     this.name = name;
     this.index = index;
     this.staffPosition = staffPosition;
     this.staffLine = domStaffLines[this.staffPosition];
+    this.isSharp = isSharp;
+    this.generated = false;
+    this.staffNote = document.createElement('SPAN');
+  }
+
+  // function to allow different notes on the same line
+  isSameLineDifNote() { return this.staffLine.firstChild.className.includes('sharp'); }
+
+  showNote() {
+    // creat new span
+    this.staffLine.appendChild(this.staffNote);
+    
+    if (this.isSharp){
+      this.staffNote.classList.add('whole-note');
+      this.staffNote.classList.add('sharp');
+    } else { this.staffNote.classList.add('whole-note'); }
+  }
+
+  showNoteLetter(){
+    this.staffNote.classList.add('staff-note-name')
+    this.staffNote.innerHTML = this.name;
+  }
+  
+  removeNote() {
+    if (this.staffLine.childElementCount == 2){
+      this.staffLine.removeChild(this.staffLine.childNodes[1]); 
+    } else { this.staffLine.removeChild(this.staffLine.firstChild); }
   }
 
   notePlay() {
-    const staffNote = document.createElement('SPAN');
-    if (this.staffLine.childElementCount < 1) {
-      staffNote.classList.add('whole-note');
-      this.staffLine.appendChild(staffNote);
-      cssNotes[this.index].classList.add('is-active');
-      // console.log(`You played the key "${this.name}"`);
+    if (this.generated){
+      noteGenerated = false;
+      this.generated  = false;
+      console.log('score!');
+      scoreCounter += 1
+      score.innerHTML = scoreCounter;
+      generateNote()
     }
+
+    // this.audio.volume = 1;
+    // this.audio.play();
+    // if statements to prevent multiple triggers from holing down key
+    if (!this.staffLine.childElementCount){
+      this.showNote(); this.showNoteLetter();
+      cssNotes[this.index].classList.add('is-active');
+    } else if (this.staffLine.childElementCount == 1){
+      if (this.isSharp && !this.isSameLineDifNote()){
+        this.showNote(); this.showNoteLetter();
+        cssNotes[this.index].classList.add('is-active');
+      } else if (!this.isSharp && this.isSameLineDifNote()){
+        this.showNote(); this.showNoteLetter();
+        cssNotes[this.index].classList.add('is-active');
+      }
+    }
+
+    // console.log(`You played the key "${this.name}"`);
   }
 
   noteStop() {
-    this.staffLine.removeChild(this.staffLine.firstChild);
-    cssNotes[this.index].classList.remove('is-active');
+  //   const fadeInterval = setInterval(
+  //     () => {
+  //     if(this.audio.volume <= 0.1){
+  //         this.audio.volume = 0
+  //         this.audio.pause()
+  //         this.audio.currentTime = 0;
+  //         clearInterval(fadeInterval);
+  //         return;
+  //     }
+  //     console.log("still")
+  //     this.audio.volume -= 0.1;
+  // }, 10);
+    
+
+    // remove notes from staff
+    this.removeNote()
+    this.playIsCalled = false;
+    cssNotes[this.index].classList.remove('is-active');   
   }
 }
-
 // make elements for each note
-const c4 = new Note('C', 0, 10);
-const cSharp4 = new Note('C#', 1, 10);
-const d4 = new Note('D', 2, 9);
-const dSharp4 = new Note('D#', 3, 9);
-const e4 = new Note('E', 4, 8);
-const f4 = new Note('F', 5, 7);
-const fSharp4 = new Note('F#', 6, 7);
-const g4 = new Note('G', 7, 6);
-const gSharp4 = new Note('G#', 8, 6);
-const a4 = new Note('A', 9, 5);
-const aSharp4 = new Note('A#', 10, 5);
-const b4 = new Note('B', 11, 4);
-const c5 = new Note('C', 12, 3);
-const cSharp5 = new Note('C#', 13, 3);
-const d5 = new Note('D', 14, 2);
+const c4 = new Note('C', 0, 10, false);
+const cSharp4 = new Note('C#', 1, 10, true);
+const d4 = new Note('D', 2, 9, false);
+const dSharp4 = new Note('D#', 3, 9, true);
+const e4 = new Note('E', 4, 8, false);
+const f4 = new Note('F', 5, 7, false);
+const fSharp4 = new Note('F#', 6, 7, true);
+const g4 = new Note('G', 7, 6, false);
+const gSharp4 = new Note('G#', 8, 6, true);
+const a4 = new Note('A', 9, 5, false);
+const aSharp4 = new Note('A#', 10, 5, true);
+const b4 = new Note('B', 11, 4, false);
+const c5 = new Note('C', 12, 3, false);
+const cSharp5 = new Note('C#', 13, 3, true);
+const d5 = new Note('D', 14, 2, false);
 
 
 // create key press effect by toggling 'is-active' class
@@ -95,6 +170,11 @@ document.onkeyup = (e) => {
 // game play
 
 
+// score
+let scoreCounter = 0;
+let score = document.getElementById('score');
+score.innerHTML = scoreCounter;
+
 // capture every available note object
 const everyNote = [
   c4, cSharp4, d4, dSharp4, e4, f4, fSharp4,
@@ -102,14 +182,21 @@ const everyNote = [
 ];
 
 // create note generator
+let noteGenerated = false;
 const generateNote = () => {
-  const randomNote = Math.floor(Math.random() * everyNote.length);
-  
+  if (!noteGenerated) {
+    const randomNote = Math.floor(Math.random() * everyNote.length);
+    const generatedNote = everyNote[randomNote];
+    generatedNote.showNote();
+    generatedNote.showNoteLetter();
+    generatedNote.generated = true;
+    noteGenerated = true;
+  } 
 }
 
 // assign button from dom to generate random note
 const startBtn = document.getElementById('start-btn');
-startBtn.addEventListener('click', generateNote , false);
+startBtn.addEventListener('click', generateNote, false);
 
 // if computer has generated note player must guess note to move on
 

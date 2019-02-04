@@ -17,6 +17,10 @@ h1 {
   margin-top: 80px;
 }
 
+.score-container {
+  display: flex;
+  justify-content: center;
+}
 .staff{
   width: 1000px;
   margin: 10% auto;
@@ -27,7 +31,17 @@ h1 {
   margin: -16px 0 0;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: middle;
+}
+
+.staff-note-name {
+  color: white;
+  border-color: black;
+  text-align: center;
+  line-height: 24px;
+  font-family: sans-serif;
+  font-weight: 100;
+  font-size: 27px;
 }
 
 .border.staff-line{
@@ -37,19 +51,48 @@ h1 {
 
 .whole-note{
   border-style: solid;
-  border-width: 2px 8px;
+  border-width: 2px 13px;
   border-radius: 100%;
-  width: 30px;
-  height: 15px;
+  width: 45px;
+  height: 28px;
+  transform: skewX(7deg);
+}
+
+.whole-note.sharp{
+  margin-left: 35px;
+}
+
+.sharp::after {
+  content: '#';
+  display: block;
+  margin-left: -46px;
+  margin-top: -29px;
+  font-size: 63px;
+  font-weight: 900;
+  transform: skewY(-15deg);
+}
+.sharp.staff-note-name::after{
+  content: '#';
+  display: block;
+  margin-left: -80px;
+  margin-top: -29px;
+  font-size: 63px;
+  font-weight: 900;
+  color: black;
+  font-family: serif;
+  transform: skewY(-15deg);
 }
 
 .ledger-line .whole-note::before {
   content: '';
   display: block;
   border-bottom: 2px solid;
-  width: 50px;
-  margin-left: -18px;
-  margin-top: 4px;
+  width: 52px;
+  position: absolute;
+  border-color: black;
+  margin-left: -16px;
+  margin-top: 11px;
+  z-index: -1;
 }
 
 .keyboard-section{
@@ -67,6 +110,13 @@ h1 {
 
 .keys {
   border-style: none solid solid;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.black .key-letter {
+  color: white;
 }
 
 .white {

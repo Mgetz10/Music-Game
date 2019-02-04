@@ -1,52 +1,103 @@
+// Sheet Music Teacher
+
+/* to-do
+* link btn to generate note
+* allow guessing of note
+* add points
+* add rewards
+* add sounds
+* add music theory explanation
+* fix same-line removeNote bug (use noteOrder property?)
+* improve style
+* improve sharp/flat system
+* add dynamic chord positioning
+    this.lineBefore = domStaffLines[this.staffPosition - 1]
+    this.lineAfter = domStaffLines[this.staffPosition + 1]
+*/
+
+
 // capture the html keys from the dom
 const cssNotes = document.getElementsByClassName('keys');
+// capture staff divs from the dom
 const domStaffLines = document.getElementsByClassName('staff-line');
 
 // create note class
 class Note {
-  constructor(name, index, staffPosition) {
+  constructor(name, index, staffPosition, isSharp) {
     this.name = name;
     this.index = index;
     this.staffPosition = staffPosition;
     this.staffLine = domStaffLines[this.staffPosition];
+    this.isSharp = isSharp;
+  }
+
+  // function to allow different notes on the same line
+  isSameLineDifNote () {return this.staffLine.firstChild.className.includes('sharp');}
+
+
+  showNote() {
+    // creat new span
+    const staffNote = document.createElement('SPAN');
+    this.staffLine.appendChild(staffNote);
+
+    if (this.isSharp){
+      staffNote.classList.add('whole-note');
+      staffNote.classList.add('sharp');
+    } else { staffNote.classList.add('whole-note'); }
+  }
+  
+  removeNote() {
+    const staffNote = document.createElement('SPAN');
+    this.staffLine.removeChild(this.staffLine.firstChild);
   }
 
   notePlay() {
-    const staffNote = document.createElement('SPAN');
-    if (this.staffLine.childElementCount < 1) {
-      staffNote.classList.add('whole-note');
-      this.staffLine.appendChild(staffNote);
+
+    // if statements to prevent multiple triggers from holing down key
+    if (!this.staffLine.childElementCount){
+      this.showNote();
       cssNotes[this.index].classList.add('is-active');
-      // console.log(`You played the key "${this.name}"`);
+    } else if (this.staffLine.childElementCount == 1){
+      if (this.isSharp && !this.isSameLineDifNote()){
+        this.showNote();
+        cssNotes[this.index].classList.add('is-active');
+      } else if (!this.isSharp && this.isSameLineDifNote()){
+        this.showNote();
+        cssNotes[this.index].classList.add('is-active');
+      }
     }
+
+    // console.log(`You played the key "${this.name}"`);
   }
 
   noteStop() {
-    this.staffLine.removeChild(this.staffLine.firstChild);
+
+    // remove notes from staff
+    this.removeNote()
     cssNotes[this.index].classList.remove('is-active');
   }
 }
 
 // make elements for each note
-const c4 = new Note('C', 0, 10);
-const cSharp4 = new Note('C#', 1, 10);
-const d4 = new Note('D', 2, 9);
-const dSharp4 = new Note('D#', 3, 9);
-const e4 = new Note('E', 4, 8);
-const f4 = new Note('F', 5, 7);
-const fSharp4 = new Note('F#', 6, 7);
-const g4 = new Note('G', 7, 6);
-const gSharp4 = new Note('G#', 8, 6);
-const a4 = new Note('A', 9, 5);
-const aSharp4 = new Note('A#', 10, 5);
-const b4 = new Note('B', 11, 4);
-const c5 = new Note('C', 12, 3);
-const cSharp5 = new Note('C#', 13, 3);
-const d5 = new Note('D', 14, 2);
+const c4 = new Note('C', 0, 10, false);
+const cSharp4 = new Note('C#', 1, 10, true);
+const d4 = new Note('D', 2, 9, false);
+const dSharp4 = new Note('D#', 3, 9, true);
+const e4 = new Note('E', 4, 8, false);
+const f4 = new Note('F', 5, 7, false);
+const fSharp4 = new Note('F#', 6, 7, true);
+const g4 = new Note('G', 7, 6, false);
+const gSharp4 = new Note('G#', 8, 6, true);
+const a4 = new Note('A', 9, 5, false);
+const aSharp4 = new Note('A#', 10, 5, true);
+const b4 = new Note('B', 11, 4, false);
+const c5 = new Note('C', 12, 3, false);
+const cSharp5 = new Note('C#', 13, 3, true);
+const d5 = new Note('D', 14, 2, false);
 
 
 // create key press effect by toggling 'is-active' class
-function keyboardDownMapping(e) {
+document.onkeydown = (e) => {
   switch (e.keyCode) {
     case 65: c4.notePlay(); break;
     case 87: cSharp4.notePlay(); break;
@@ -65,9 +116,9 @@ function keyboardDownMapping(e) {
     case 76: d5.notePlay(); break;
     default:
   }
-}
-document.onkeydown = keyboardDownMapping;
-function keyboardUpMapping(e) {
+};
+
+document.onkeyup = (e) => {
   switch (e.keyCode) {
     case 65: c4.noteStop(); break;
     case 87: cSharp4.noteStop(); break;
@@ -86,15 +137,33 @@ function keyboardUpMapping(e) {
     case 76: d5.noteStop(); break;
     default:
   }
-}
-document.onkeyup = keyboardUpMapping;
+};
 
-// create song
-const songTest = [
+// game play
+
+
+// capture every available note object
+const everyNote = [
   c4, cSharp4, d4, dSharp4, e4, f4, fSharp4,
-  g4, gSharp4, a4, aSharp4, b4, c5, cSharp5, d5];
+  g4, gSharp4, a4, aSharp4, b4, c5, cSharp5, d5,
+];
 
-// play song
+// create note generator
+let noteGenerated = false;
+const generateNote = () => {
+  const randomNote = Math.floor(Math.random() * everyNote.length);
+  everyNote[randomNote].showNote();
+  noteGenerated = true;
+}
+
+// assign button from dom to generate random note
+const startBtn = document.getElementById('start-btn');
+startBtn.addEventListener('click', generateNote, false);
+
+// if computer has generated note player must guess note to move on
+
+
+// play 'song'
 let placeInSong = 0;
 const playSong = (song, delay) => {
   const songInterval = setInterval(
@@ -110,4 +179,4 @@ const playSong = (song, delay) => {
   );
 };
 
-playSong(songTest, 250);
+// playSong(everyNote, 250);
