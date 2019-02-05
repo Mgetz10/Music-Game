@@ -5,12 +5,12 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <h1>Welcome to the greatest motherflute-ing music game ever created</h1>
+  <h1>You can't read</h1>
   <div class="start-btn-container">
     <button id="start-btn">Start Learning!</button>
   </div>
   <div class="score-container">
-    <span class="score-text">Score: <span id="score"></span></span>
+    <span id="score-text" class="hide">Score: <span id="score"></span></span>
   </div>
   <div class="staff">
     <div class="staff-line"></div>
@@ -25,25 +25,31 @@
     <div class="staff-line"></div>
     <div class="staff-line ledger-line"></div>
   </div>
+  <div class="keyboard-options">
+    <div class="keyboard-helper-toggle-container">
+      <h2>Keyboard Helper</h2>
+      <div id="key-help-toggle" class="toggle-case tc-active"><span class="toggle"></span></div>
+    </div>
+  </div>
   <div class="keyboard-section">
     <div class="keyboard">
-      <div id ="c4" class="white keys"><span class="key-letter">C</span></div>
-      <div id ="c-sharp4" class="black keys"><span class="key-letter">C#</span></div>
-      <div id ="d4" class="white keys"><span class="key-letter">D</span></div>
-      <div id ="d-sharp4" class="black keys"><span class="key-letter">D#</span></div>
-      <div id ="e4" class="white keys"><span class="key-letter">E</span></div>
-      <div id ="f4" class="white keys"><span class="key-letter">F</span></div>
-      <div id ="f-sharp4" class="black keys"><span class="key-letter">F#</span></div>
-      <div id ="g4" class="white keys"><span class="key-letter">G</span></div>
-      <div id ="g-sharp4" class="black keys"><span class="key-letter">G#</span></div>
-      <div id ="a4" class="white keys"><span class="key-letter">A</span></div>
-      <div id ="a-sharp4" class="black keys"><span class="key-letter">A#</span></div>
-      <div id ="b4" class="white keys"><span class="key-letter">B</span></div>
-      <div id ="c5" class="white keys"><span class="key-letter">C</span></div>
-      <div id ="c-sharp5" class="black keys"><span class="key-letter">C#</span></div>
-      <div id ="d5" class="white keys"><span class="key-letter">D</span></div>
+      <div id ="c4" class="white keys"><span class="comp-key-letter">A</span><span class="key-letter">C</span></div>
+      <div id ="c-sharp4" class="black keys"><span class="comp-key-letter">W</span><span class="key-letter">C#</span></div>
+      <div id ="d4" class="white keys"><span class="comp-key-letter">S</span><span class="key-letter">D</span></div>
+      <div id ="d-sharp4" class="black keys"><span class="comp-key-letter">E</span><span class="key-letter">D#</span></div>
+      <div id ="e4" class="white keys"><span class="comp-key-letter">D</span><span class="key-letter">E</span></div>
+      <div id ="f4" class="white keys"><span class="comp-key-letter">F</span><span class="key-letter">F</span></div>
+      <div id ="f-sharp4" class="black keys"><span class="comp-key-letter">T</span><span class="key-letter">F#</span></div>
+      <div id ="g4" class="white keys"><span class="comp-key-letter">G</span><span class="key-letter">G</span></div>
+      <div id ="g-sharp4" class="black keys"><span class="comp-key-letter">Y</span><span class="key-letter">G#</span></div>
+      <div id ="a4" class="white keys"><span class="comp-key-letter">H</span><span class="key-letter">A</span></div>
+      <div id ="a-sharp4" class="black keys"><span class="comp-key-letter">U</span><span class="key-letter">A#</span></div>
+      <div id ="b4" class="white keys"><span class="comp-key-letter">J</span><span class="key-letter">B</span></div>
+      <div id ="c5" class="white keys"><span class="comp-key-letter">K</span><span class="key-letter">C</span></div>
+      <div id ="c-sharp5" class="black keys"><span class="comp-key-letter">O</span><span class="key-letter">C#</span></div>
+      <div id ="d5" class="white keys"><span class="comp-key-letter">L</span><span class="key-letter">D</span></div>
     </div>
   </div>
   <script src="script.js"></script>
-  </body>
-  </html>
+</body>
+</html>

@@ -17,13 +17,29 @@ h1 {
   margin-top: 80px;
 }
 
+#start-btn {
+  border-radius: 13px;
+  height: 36px;
+  background: #004677;
+  border: 2px groove #003e21;
+  font-size: 19px;
+}
+
 .score-container {
   display: flex;
   justify-content: center;
 }
+
+#score-text {
+  transition: all 3s;
+  font-family: sans-serif;
+  font-size: 28px;
+  font-weight: 100;
+}
+
 .staff{
   width: 1000px;
-  margin: 10% auto;
+  margin: 80px auto 12px;
 }
 
 .staff-line {
@@ -31,11 +47,10 @@ h1 {
   margin: -16px 0 0;
   display: flex;
   justify-content: center;
-  align-items: middle;
 }
 
 .staff-note-name {
-  color: white;
+  color: rgba(255, 255, 255, 1);
   border-color: black;
   text-align: center;
   line-height: 24px;
@@ -95,6 +110,60 @@ h1 {
   z-index: -1;
 }
 
+h2 {
+  font-family: sans-serif;
+  font-weight: 100;
+}
+
+.keyboard-options{
+  display: flex;
+  justify-content: center;
+}
+
+.keyboard-helper-toggle-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toggle-case {
+  border-radius: 20px;
+  border: 1px solid #0000008f;
+  box-shadow: 0px 0px 4px 0px inset;
+  width: 44px;
+  height: 30px;
+  transition: all 2s;
+}
+
+.tc-active {
+  background: green;
+  margin-left: -1px;
+}
+
+.tc-inactive {
+  background: darkred;
+}
+
+.tc-active .toggle {
+  margin-left: -1px;
+  box-shadow: 1px 0px 3px 0px;
+}
+
+.tc-inactive .toggle {
+  margin-left: 16px;
+  box-shadow: -1px 0px 3px 0px;
+}
+
+.toggle {
+  display: block;
+  transition: all 2s;
+  border-radius: 100%;
+  width: 28px;
+  height: 28px;
+  background: grey;
+  border: 1px solid;
+}
+
 .keyboard-section{
   position: fixed;
   bottom: 20px;
@@ -105,18 +174,43 @@ h1 {
 .keyboard {
   display: flex;
   justify-content: center;
-  height:350px
+  height:350px;
+  font-family: sans-serif;
 }
 
 .keys {
   border-style: none solid solid;
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.comp-key-letter {
+  transition: all 2s;
+  display: block;
+  background: grey;
+  border: 3px solid #636363;
+  text-align: center;
+  width: 23px;
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.hide {
+  font-size: 1px;
+  display: none;
+}
+
+.key-letter {
+  font-size: 36px;
+  margin-bottom: 10px;
 }
 
 .black .key-letter {
   color: white;
+  font-size: 18px;
+  margin-bottom: 0;
 }
 
 .white {

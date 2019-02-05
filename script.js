@@ -20,6 +20,7 @@ const cssNotes = document.getElementsByClassName('keys');
 // capture staff divs from the dom
 const domStaffLines = document.getElementsByClassName('staff-line');
 
+let alphaChannel = 0.0;
 // create note class
 class Note {
   constructor(name, index, staffPosition, isSharp) {
@@ -43,6 +44,7 @@ class Note {
       this.staffNote.classList.add('whole-note');
       this.staffNote.classList.add('sharp');
     } else { this.staffNote.classList.add('whole-note'); }
+    this.staffNote.style.color = "rgba(255,255,255,"+alphaChannel+")";
   }
 
   showNoteLetter(){
@@ -62,9 +64,14 @@ class Note {
       this.generated  = false;
       console.log('score!');
       scoreCounter += 1
+      alphaChannel -= 0.1;
       score.innerHTML = scoreCounter;
-      generateNote()
-    }
+      setTimeout(generateNote, 300)
+    } else if(noteGenerated){ 
+      alphaChannel += 0.1;
+      generatedNote.removeNote();
+      generatedNote.showNote();
+     }
 
     // this.audio.volume = 1;
     // this.audio.play();
@@ -183,10 +190,22 @@ const everyNote = [
 
 // create note generator
 let noteGenerated = false;
+let generatedNote;
+let startHidden = false;
+
+const hideStart = () => {
+  startHidden = true;
+  startBtn.classList.toggle('hide')
+  let scoreHTML = document.getElementById('score-text');
+  scoreHTML.classList.toggle('hide');
+}
 const generateNote = () => {
   if (!noteGenerated) {
+    if (!startHidden){
+      hideStart();
+    }
     const randomNote = Math.floor(Math.random() * everyNote.length);
-    const generatedNote = everyNote[randomNote];
+    generatedNote = everyNote[randomNote];
     generatedNote.showNote();
     generatedNote.showNoteLetter();
     generatedNote.generated = true;
@@ -218,3 +237,15 @@ const playSong = (song, delay) => {
 };
 
 // playSong(everyNote, 250);
+
+// keyboard helper
+const switchKeyHelpToggle = () => {
+  keyboardHelper.classList.toggle('tc-active');
+  keyboardHelper.classList.toggle('tc-inactive');
+  for (let i = 0; i < compKeyLetters.length; i++){
+    compKeyLetters[i].classList.toggle('hide');
+  }
+}
+const compKeyLetters = document.getElementsByClassName('comp-key-letter');
+const keyboardHelper = document.getElementById('key-help-toggle');
+keyboardHelper.addEventListener('click', switchKeyHelpToggle, false);
