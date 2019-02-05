@@ -1,13 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa');
+
 * {
   box-sizing: border-box
 }
 
 body {
-  background: darkslategray;
+  background: linear-gradient(-90deg, #f8d34d36, #fff0a752);
+  font-family: 'Comfortaa', sans-serif;
+}
+
+#intro {
+  height: 100vh;
+}
+
+.intro-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 h1 {
-  color: white;
+  color: rgb(106, 154, 77);
   text-align: center;
 }
 
@@ -20,9 +33,70 @@ h1 {
 #start-btn {
   border-radius: 13px;
   height: 36px;
-  background: #004677;
+  background: #6bcae6cf;
   border: 2px groove #003e21;
   font-size: 19px;
+  font-family: 'Comfortaa', sans-serif;
+}
+
+.intro-slides {
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide {
+  background: white;
+  border: 1px solid;
+  border-radius: 10px;
+  height: 416px;
+  width: 650px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  text-align: center;
+  justify-content: center;
+}
+
+.explanation {
+  font-size: 1.5rem;
+  margin-top: 63px;
+  line-height: 52px;
+  padding: 0 59px;
+}
+
+/* .piano-one .explanation {
+  font-size: 2rem;
+} */
+
+.slide-btn {
+  height: 32px;
+  width: 87px;
+  border: 1px groove #00000054;
+  border-radius: 10px;
+  background: #6bcae6cf;
+  display: block;
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.71);
+}
+
+.slide-buttons {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.leaf {
+  background: rgb(106, 154, 77);
+  height: 80px;
+  width: 80px;
+  border: 1px solid #1f14088f;
+  border-radius: 90px 0px 92px 10px;
+  position: absolute;
 }
 
 .score-container {
@@ -31,8 +105,7 @@ h1 {
 }
 
 #score-text {
-  transition: all 3s;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   font-size: 28px;
   font-weight: 100;
 }
@@ -50,11 +123,11 @@ h1 {
 }
 
 .staff-note-name {
-  color: rgba(255, 255, 255, 1);
+  color: rgba(106, 154, 77);
   border-color: black;
   text-align: center;
   line-height: 24px;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   font-weight: 100;
   font-size: 27px;
 }
@@ -62,12 +135,14 @@ h1 {
 .border.staff-line{
   border-style: solid none;
   border-width: 2px;
+  border-color: #376737;
 }
 
 .whole-note{
   border-style: solid;
   border-width: 2px 13px;
   border-radius: 100%;
+  border-color: #00c4ff;
   width: 45px;
   height: 28px;
   transform: skewX(7deg);
@@ -93,8 +168,8 @@ h1 {
   margin-top: -29px;
   font-size: 63px;
   font-weight: 900;
-  color: black;
-  font-family: serif;
+  color: #00c4ff;;
+  /* font-family: serif; */
   transform: skewY(-15deg);
 }
 
@@ -111,7 +186,7 @@ h1 {
 }
 
 h2 {
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   font-weight: 100;
 }
 
@@ -124,6 +199,7 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-right: 96px;
 }
 
 .toggle-case {
@@ -132,7 +208,7 @@ h2 {
   box-shadow: 0px 0px 4px 0px inset;
   width: 44px;
   height: 30px;
-  transition: all 2s;
+  transition: all .5s;
 }
 
 .tc-active {
@@ -156,7 +232,7 @@ h2 {
 
 .toggle {
   display: block;
-  transition: all 2s;
+  transition: all .5s;
   border-radius: 100%;
   width: 28px;
   height: 28px;
@@ -164,18 +240,23 @@ h2 {
   border: 1px solid;
 }
 
-.keyboard-section{
+#keyboard-section{
   position: fixed;
   bottom: 20px;
   left: 50%;
   transform: translate(-50%, 0);
 } 
 
+.ko-flex {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .keyboard {
   display: flex;
   justify-content: center;
   height:350px;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
 }
 
 .keys {
@@ -198,7 +279,6 @@ h2 {
 }
 
 .hide {
-  font-size: 1px;
   display: none;
 }
 
@@ -231,7 +311,7 @@ h2 {
   height: 200px;
 }
 
-#d4, #e4, #g4, #a4, #b4, #d5, .black {
+#g3, #a3, #b3, #d4, #e4, #g4, #a4, #b4, #d5, #e5, .black {
   margin: 0 0 0 -20px;
 }
 
@@ -243,4 +323,9 @@ h2 {
 .black.is-active{
   border-color: black rgb(24, 24, 24);
   border-width: 0 6px 6px;
+}
+
+.key-highlight {
+  border-color: red;
+  box-shadow: 0px 0px 10px inset red;
 }

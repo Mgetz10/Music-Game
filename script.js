@@ -1,18 +1,22 @@
 // Sheet Music Teacher
 
 /* to-do
+
+* add music theory explanation
 * add rewards
-   animationsdd
-   levels
+    animationsdd
+    levels
     level progress meters
 * add sounds
-   this.audio = new Audio(audio);
-* add music theory explanation
+    this.audio = new Audio(audio);
+    this.audio.volume = 1;
+    this.audio.play();
 * improve style
 * improve sharp/flat system
 * add dynamic chord positioning
     this.lineBefore = domStaffLines[this.staffPosition - 1]
     this.lineAfter = domStaffLines[this.staffPosition + 1]
+
 */
 
 // capture the html keys from the dom
@@ -31,6 +35,7 @@ class Note {
     this.isSharp = isSharp;
     this.generated = false;
     this.staffNote = document.createElement('SPAN');
+    this.playIsCalled = false;
   }
 
   // function to allow different notes on the same line
@@ -44,7 +49,7 @@ class Note {
       this.staffNote.classList.add('whole-note');
       this.staffNote.classList.add('sharp');
     } else { this.staffNote.classList.add('whole-note'); }
-    this.staffNote.style.color = "rgba(255,255,255,"+alphaChannel+")";
+    this.staffNote.style.color = "rgba(0, 0, 0, "+alphaChannel+")";
   }
 
   showNoteLetter(){
@@ -58,7 +63,7 @@ class Note {
     } else { this.staffLine.removeChild(this.staffLine.firstChild); }
   }
 
-  notePlay() {
+  gamePlay(){
     if (this.generated){
       noteGenerated = false;
       this.generated  = false;
@@ -71,20 +76,25 @@ class Note {
       alphaChannel += 0.1;
       generatedNote.removeNote();
       generatedNote.showNote();
-     }
+    }
+  }
 
-    // this.audio.volume = 1;
-    // this.audio.play();
+  notePlay() {
+    this.playIsCalled = true;
+    this.gamePlay()
     // if statements to prevent multiple triggers from holing down key
     if (!this.staffLine.childElementCount){
-      this.showNote(); this.showNoteLetter();
+      this.showNote();
+      this.showNoteLetter();
       cssNotes[this.index].classList.add('is-active');
     } else if (this.staffLine.childElementCount == 1){
       if (this.isSharp && !this.isSameLineDifNote()){
-        this.showNote(); this.showNoteLetter();
+        this.showNote();
+        this.showNoteLetter();
         cssNotes[this.index].classList.add('is-active');
       } else if (!this.isSharp && this.isSameLineDifNote()){
-        this.showNote(); this.showNoteLetter();
+        this.showNote();
+        this.showNoteLetter();
         cssNotes[this.index].classList.add('is-active');
       }
     }
@@ -109,26 +119,25 @@ class Note {
 
     // remove notes from staff
     this.removeNote()
-    this.playIsCalled = false;
     cssNotes[this.index].classList.remove('is-active');   
   }
 }
 // make elements for each note
-const c4 = new Note('C', 0, 10, false);
-const cSharp4 = new Note('C#', 1, 10, true);
-const d4 = new Note('D', 2, 9, false);
-const dSharp4 = new Note('D#', 3, 9, true);
-const e4 = new Note('E', 4, 8, false);
-const f4 = new Note('F', 5, 7, false);
-const fSharp4 = new Note('F#', 6, 7, true);
-const g4 = new Note('G', 7, 6, false);
-const gSharp4 = new Note('G#', 8, 6, true);
-const a4 = new Note('A', 9, 5, false);
-const aSharp4 = new Note('A#', 10, 5, true);
-const b4 = new Note('B', 11, 4, false);
-const c5 = new Note('C', 12, 3, false);
-const cSharp5 = new Note('C#', 13, 3, true);
-const d5 = new Note('D', 14, 2, false);
+const c4 = new Note('C', 7, 10, false);
+const cSharp4 = new Note('C#', 8, 10, true);
+const d4 = new Note('D', 9, 9, false);
+const dSharp4 = new Note('D#', 10, 9, true);
+const e4 = new Note('E', 11, 8, false);
+const f4 = new Note('F', 12, 7, false);
+const fSharp4 = new Note('F#', 13, 7, true);
+const g4 = new Note('G', 14, 6, false);
+const gSharp4 = new Note('G#', 15, 6, true);
+const a4 = new Note('A', 16, 5, false);
+const aSharp4 = new Note('A#', 17, 5, true);
+const b4 = new Note('B', 18, 4, false);
+const c5 = new Note('C', 19, 3, false);
+const cSharp5 = new Note('C#', 20, 3, true);
+const d5 = new Note('D', 21, 2, false);
 
 
 // create key press effect by toggling 'is-active' class
@@ -191,19 +200,10 @@ const everyNote = [
 // create note generator
 let noteGenerated = false;
 let generatedNote;
-let startHidden = false;
 
-const hideStart = () => {
-  startHidden = true;
-  startBtn.classList.toggle('hide')
-  let scoreHTML = document.getElementById('score-text');
-  scoreHTML.classList.toggle('hide');
-}
+
 const generateNote = () => {
   if (!noteGenerated) {
-    if (!startHidden){
-      hideStart();
-    }
     const randomNote = Math.floor(Math.random() * everyNote.length);
     generatedNote = everyNote[randomNote];
     generatedNote.showNote();
@@ -214,8 +214,6 @@ const generateNote = () => {
 }
 
 // assign button from dom to generate random note
-const startBtn = document.getElementById('start-btn');
-startBtn.addEventListener('click', generateNote, false);
 
 // if computer has generated note player must guess note to move on
 
@@ -233,19 +231,115 @@ const playSong = (song, delay) => {
       placeInSong += 1;
     },
     delay,
-  );
-};
-
-// playSong(everyNote, 250);
-
-// keyboard helper
-const switchKeyHelpToggle = () => {
-  keyboardHelper.classList.toggle('tc-active');
-  keyboardHelper.classList.toggle('tc-inactive');
-  for (let i = 0; i < compKeyLetters.length; i++){
-    compKeyLetters[i].classList.toggle('hide');
+    );
+  };
+  
+  // playSong(everyNote, 250);
+  
+  // keyboard helper
+  const switchKeyHelpToggle = () => {
+    keyboardHelper.classList.toggle('tc-active');
+    keyboardHelper.classList.toggle('tc-inactive');
+    keyboardHelperToggleEx.classList.toggle('tc-active');
+    keyboardHelperToggleEx.classList.toggle('tc-inactive');
+    for (let i = 0; i < compKeyLetters.length; i++){
+      compKeyLetters[i].classList.toggle('hide');
+    }
   }
-}
-const compKeyLetters = document.getElementsByClassName('comp-key-letter');
-const keyboardHelper = document.getElementById('key-help-toggle');
-keyboardHelper.addEventListener('click', switchKeyHelpToggle, false);
+  const keyboardHelperToggleEx = document.getElementById('key-help-toggle-ex');
+  keyboardHelperToggleEx.addEventListener('click', switchKeyHelpToggle, false);
+  const compKeyLetters = document.getElementsByClassName('comp-key-letter');
+  const keyboardHelper = document.getElementById('key-help-toggle');
+  keyboardHelper.addEventListener('click', switchKeyHelpToggle, false);
+  
+  // start slides
+  let introHidden = false;
+  const introSlides = document.getElementsByClassName('slide');
+  let slideNumber = 0;
+  const startSlide = document.getElementById('intro');
+  const introSlide = () =>{
+    if (!introHidden){
+      startSlide.classList.toggle('intro-flex')
+      startSlide.classList.toggle('hide');
+      introHidden = true;
+    }
+    if (slideNumber){ introSlides[slideNumber - 1].classList.toggle('hide');}
+    if (slideNumber == 2){ keyboardSection.classList.remove('hide');}
+    if (slideNumber == 4){
+      for (let i = 0; i < extraKeys.length; i++){
+        extraKeys[i].classList.add('hide');
+      }
+    }
+    if (slideNumber === 5){
+      keyboardOptions.classList.remove('hide');
+      highlightNote(c4);
+     }
+      introSlides[slideNumber].classList.toggle('hide');
+      // introSlides[slideNumber + 1].classList.toggle('hide');
+      slideNumber++;
+  }
+
+  const backSlide = () => {
+    introSlides[slideNumber - 2].classList.toggle('hide');
+    introSlides[slideNumber -1].classList.toggle('hide');
+    slideNumber--;
+  }
+
+  const startBtn = document.getElementById('start-btn');
+  startBtn.addEventListener('click', introSlide, false);
+
+  const gotIt = document.getElementById('got-it');
+  gotIt.addEventListener('click', introSlide, false);
+
+  const backBtnOne = document.getElementById('back-one');
+  const nextBtnOne = document.getElementById('next-one');
+  backBtnOne.addEventListener('click', backSlide, false);
+  nextBtnOne.addEventListener('click', introSlide, false);
+  
+  const keyboardSection = document.getElementById('keyboard-section');
+
+  const backBtnTwo = document.getElementById('back-two');
+  const nextBtnTwo = document.getElementById('next-two');
+  backBtnTwo.addEventListener('click', backSlide, false);
+  nextBtnTwo.addEventListener('click', introSlide, false);
+
+  const backBtnThree = document.getElementById('back-three');
+  const nextBtnThree = document.getElementById('next-three');
+  backBtnThree.addEventListener('click', backSlide, false);
+  nextBtnThree.addEventListener('click', introSlide, false);
+  
+  const backBtnFour = document.getElementById('back-four');
+  const nextBtnFour = document.getElementById('next-four');
+  backBtnFour.addEventListener('click', backSlide, false);
+  nextBtnFour.addEventListener('click', introSlide, false);
+  
+  const backBtnFive = document.getElementById('back-five');
+  backBtnFive.addEventListener('click', backSlide, false);
+  
+  const backBtnSix = document.getElementById('back-six');
+  const nextBtnSix = document.getElementById('next-six');
+  backBtnSix.addEventListener('click', backSlide, false);
+  nextBtnSix.addEventListener('click', introSlide, false);
+
+  let extraKeys = document.getElementsByClassName('ex')
+
+  let walkthrough = false;
+
+  let keyboardOptions = document.getElementById('keyboard-options');
+
+  const highlightNote = (noteObject) => {
+    const flashingNote = setInterval(
+      () => {
+        cssNotes[noteObject.index].classList.toggle('key-highlight')
+        if(noteObject.playIsCalled){
+          if (cssNotes[noteObject.index].className.includes('key-highlight')){
+            cssNotes[noteObject.index].classList.remove('key-highlight');
+          }
+          noteObject.playIsCalled = false;
+          introSlide();
+          clearInterval(flashingNote)
+        }
+      },
+      500,
+      );
+    }
