@@ -24,14 +24,16 @@ const cssNotes = document.getElementsByClassName('keys');
 // capture staff divs from the dom
 const domStaffLines = document.getElementsByClassName('staff-line');
 
-let alphaChannel = 0.0;
+let alphaChannel = 0;
 // create note class
 class Note {
-  constructor(name, index, staffPosition, isSharp) {
+  constructor(name, nameNumber, index, staffPosition, isSharp) {
     this.name = name;
+    this.nameNumber = nameNumber;
     this.index = index;
     this.staffPosition = staffPosition;
     this.staffLine = domStaffLines[this.staffPosition];
+    this.childNumber = 0;
     this.isSharp = isSharp;
     this.generated = false;
     this.staffNote = document.createElement('SPAN');
@@ -56,12 +58,14 @@ class Note {
   showNote() {
     // creat new span
     this.staffLine.appendChild(this.staffNote);
+    this.staffNote.classList.add('whole-note');
+    this.staffNote.setAttribute('id', this.domID)
     
     if (this.isSharp){
-      this.staffNote.classList.add('whole-note');
       this.staffNote.classList.add('sharp');
-    } else { this.staffNote.classList.add('whole-note'); }
+    }
     this.staffNote.style.color = "rgba(0, 0, 0, "+alphaChannel+")";
+    this.showNoteLetter();
   }
 
   showNoteLetter(){
@@ -71,49 +75,69 @@ class Note {
   
   removeNote() {
     if (!this.staffLine.childElementCount){} 
-    else if (this.staffLine.childElementCount == 2){
-      this.staffLine.removeChild(this.staffLine.childNodes[1]); 
-    } else { this.staffLine.removeChild(this.staffLine.firstChild); }
+    this.staffLine.removeChild(this.staffNote) 
   }
 
   gamePlay(){
     if (this.generated){
-      noteGenerated = false;
+      this.synthA.triggerAttack(this.nameNumber)
       this.generated  = false;
       console.log('score!');
-      scoreCounter += 1
-      alphaChannel -= 0.1;
+      if(alphaChannel > 0){
+        alphaChannel -= 0.4;
+      }
       score.innerHTML = scoreCounter;
-      setTimeout(generateNote, 300)
+      if (noteGenerated){
+        scoreCounter += 1
+        noteGenerated = false;
+        if (scoreCounter === 5){ 
+          scoreCounter = 0;
+          introSlide();
+        } 
+        else { setTimeout(generateNote, 300) };
+      } else if (songGenerated){
+        songGenerated = false;
+        placeInSong++;
+        if (placeInSong < songArray.length){
+          setTimeout(() => {
+            generateSong(songArray);
+          }, 300);
+        } else { introSlide() }
+      }
     } else if(noteGenerated){ 
-      alphaChannel += 0.1;
       generatedNote.removeNote();
+      scoreCounter = 0;
+      alphaChannel += 0.2;
       generatedNote.showNote();
+    } else if(songGenerated){
+      placeInSong = 0
+      generatedNote.removeNote()
+      setTimeout(() => {
+        generateSong(songArray);
+      }, 300);
     }
   }
 
   notePlay() {
     this.playIsCalled = true;
-    this.gamePlay()
+    if(pianoHidden){ return };
     // if statements to prevent multiple triggers from holing down key
     if (!this.staffLine.childElementCount){
-      this.synthA.triggerAttack(this.name)
+      this.synthA.triggerAttack(this.nameNumber)
       this.showNote();
-      this.showNoteLetter();
       cssNotes[this.index].classList.add('is-active');
     } else if (this.staffLine.childElementCount == 1){
       if (this.isSharp && !this.isSameLineDifNote()){
-        this.synthA.triggerAttack(this.name)
+        this.synthA.triggerAttack(this.nameNumber)
         this.showNote();
-        this.showNoteLetter();
         cssNotes[this.index].classList.add('is-active');
       } else if (!this.isSharp && this.isSameLineDifNote()){
-        this.synthA.triggerAttack(this.name)
+        this.synthA.triggerAttack(this.nameNumber)
         this.showNote();
-        this.showNoteLetter();
         cssNotes[this.index].classList.add('is-active');
       }
     }
+    this.gamePlay()
 
     // console.log(`You played the key "${this.name}"`);
   }
@@ -140,21 +164,21 @@ class Note {
   }
 }
 // make elements for each note
-const c4 = new Note('C4', 7, 10, false);
-const cSharp4 = new Note('C#4', 8, 10, true);
-const d4 = new Note('D4', 9, 9, false);
-const dSharp4 = new Note('D#4', 10, 9, true);
-const e4 = new Note('E4', 11, 8, false);
-const f4 = new Note('F4', 12, 7, false);
-const fSharp4 = new Note('F#4', 13, 7, true);
-const g4 = new Note('G4', 14, 6, false);
-const gSharp4 = new Note('G#4', 15, 6, true);
-const a4 = new Note('A4', 16, 5, false);
-const aSharp4 = new Note('A#4', 17, 5, true);
-const b4 = new Note('B4', 18, 4, false);
-const c5 = new Note('C5', 19, 3, false);
-const cSharp5 = new Note('C#5', 20, 3, true);
-const d5 = new Note('D5', 21, 2, false);
+const c4 = new Note('C','C4', 7, 10, false);
+const cSharp4 = new Note('C#','C#4', 8, 10, true);
+const d4 = new Note('D','D4', 9, 9, false);
+const dSharp4 = new Note('D#','D#4', 10, 9, true);
+const e4 = new Note('E','E4', 11, 8, false);
+const f4 = new Note('F','F4', 12, 7, false);
+const fSharp4 = new Note('F#','F#4', 13, 7, true);
+const g4 = new Note('G','G4', 14, 6, false);
+const gSharp4 = new Note('G#','G#4', 15, 6, true);
+const a4 = new Note('A','A4', 16, 5, false);
+const aSharp4 = new Note('A#','A#4', 17, 5, true);
+const b4 = new Note('B','B4', 18, 4, false);
+const c5 = new Note('C','C5', 19, 3, false);
+const cSharp5 = new Note('C#','C#5', 20, 3, true);
+const d5 = new Note('D','D5', 21, 2, false);
 
 
 // create key press effect by toggling 'is-active' class
@@ -215,7 +239,37 @@ const everyNote = [
 ];
 
 
-const someWhereOverTheRainbow = [c4, c5, b4, g4, a4, b4, c5,]
+const someWhereOverTheRainbow = [
+  {
+    name: c4,
+    type: 2,
+  },
+  {
+    name: c5,
+    type: 2,
+  },
+  {
+    name: b4,
+    type: 1,
+  },
+  {
+    name: g4,
+    type: 0.5,
+  },
+  {
+    name: a4,
+    type: 0.5,
+  },
+  {
+    name: b4,
+    type: 1,
+  },
+  {
+    name: c5,
+    type: 1,
+  },
+]
+
 // create note generator
 let noteGenerated = false;
 let generatedNote;
@@ -226,10 +280,19 @@ const generateNote = () => {
     const randomNote = Math.floor(Math.random() * everyNote.length);
     generatedNote = everyNote[randomNote];
     generatedNote.showNote();
-    generatedNote.showNoteLetter();
     generatedNote.generated = true;
     noteGenerated = true;
   } 
+}
+
+let songGenerated = false;
+let songArray;
+const generateSong = (song) => {
+    songArray = song;
+    generatedNote = song[placeInSong].name;
+    generatedNote.showNote();
+    generatedNote.generated = true;
+    songGenerated = true;
 }
 
 // assign button from dom to generate random note
@@ -239,19 +302,22 @@ const generateNote = () => {
 
 // play 'song'
 let placeInSong = 0;
+// to-do: change to set timeout to incorporate rhythm
 const playSong = (song, delay) => {
+  let rhythm = delay;
   const songInterval = setInterval(
     () => {
-      if (placeInSong > 0) { song[placeInSong - 1].noteStop(); }
+      if (placeInSong > 0) { song[placeInSong - 1].name.noteStop(); }
       if (placeInSong < song.length) { 
-        song[placeInSong].notePlay(); 
+        song[placeInSong].name.notePlay(); 
+        rhythm = delay * song[placeInSong].type;
         placeInSong += 1;
       } else {
         placeInSong = 0;
         clearInterval(songInterval);
       }
     },
-    delay,
+    rhythm,
     );
   };
   
@@ -277,6 +343,7 @@ const playSong = (song, delay) => {
   let introHidden = false;
   const introSlides = document.getElementsByClassName('slide');
   let slideNumber = 0;
+  let pianoHidden = true;
   const startSlide = document.getElementById('intro');
   const introSlide = () =>{
     if (!introHidden){
@@ -285,7 +352,10 @@ const playSong = (song, delay) => {
       introHidden = true;
     }
     if (slideNumber){ introSlides[slideNumber - 1].classList.toggle('hide');}
-    if (slideNumber === 2){ keyboardSection.classList.remove('hide');}
+    if (slideNumber === 2){ 
+      pianoHidden = false;
+      keyboardSection.classList.remove('hide');
+    }
     if (slideNumber === 4){
       for (let i = 0; i < extraKeys.length; i++){
         extraKeys[i].classList.add('hide');
@@ -300,6 +370,13 @@ const playSong = (song, delay) => {
       introContainer.classList.add('hide');
       showNoteExample(c4);
     }
+    if (slideNumber === 9){
+      showNoteExample(cSharp4);
+    }
+    if (slideNumber === 11){
+      guessGameEx.classList.add('hide');
+      guessGameExP.classList.add('hide');
+    }
       introSlides[slideNumber].classList.toggle('hide');
       
       slideNumber++;
@@ -308,6 +385,9 @@ const playSong = (song, delay) => {
     const backSlide = () => {
       introSlides[slideNumber - 2].classList.toggle('hide');
       introSlides[slideNumber -1].classList.toggle('hide');
+      if (slideNumber === 7){
+        highlightNote(c4);
+      }
       slideNumber--;
     }
     
@@ -352,6 +432,32 @@ const playSong = (song, delay) => {
     backBtnSeven.addEventListener('click', backSlide, false);
     nextBtnSeven.addEventListener('click', introSlide, false);
     
+    const nextBtnEight = document.getElementById('next-eight');
+    nextBtnEight.addEventListener('click', introSlide, false);
+    
+    const backBtnNine = document.getElementById('back-nine');
+    const nextBtnNine = document.getElementById('next-nine');
+    backBtnNine.addEventListener('click', backSlide, false);
+    nextBtnNine.addEventListener('click', introSlide, false);
+    
+    const backBtnTen = document.getElementById('back-ten');
+    const nextBtnTen = document.getElementById('next-ten');
+    backBtnTen.addEventListener('click', backSlide, false);
+    nextBtnTen.addEventListener('click', () => {
+      guessGameEx.classList.remove('hide');
+      guessGameExP.classList.remove('hide');
+      generateNote();
+    }, false);
+    
+    const backBtnEleven = document.getElementById('back-eleven');
+    const nextBtnEleven = document.getElementById('next-eleven');
+    backBtnEleven.addEventListener('click', backSlide, false);
+    nextBtnEleven.addEventListener('click', () => {
+      guessGameExTwo.classList.remove('hide');
+      guessGameExPTwo.classList.remove('hide');
+      generateSong(someWhereOverTheRainbow)
+    }, false);
+
     let extraKeys = document.getElementsByClassName('ex')
     
     let walkthrough = false;
@@ -359,7 +465,10 @@ const playSong = (song, delay) => {
     let keyboardOptions = document.getElementById('keyboard-options');
     
     const staffHTML = document.getElementById('staff');
-    
+    const guessGameEx = document.getElementById('guess-game-ex')
+    const guessGameExP = document.getElementById('guess-game-ex-p')
+    const guessGameExTwo = document.getElementById('guess-game-ex-two')
+    const guessGameExPTwo = document.getElementById('guess-game-ex-p-two')
     const introContainer = document.getElementById('intro-container');
     
     const highlightNote = (noteObject) => {
@@ -389,7 +498,7 @@ const playSong = (song, delay) => {
             noteObject.noteStop();
             setTimeoutCounter++
           }
-          if (setTimeoutCounter === 16){
+          if (setTimeoutCounter === 3){
             setTimeoutCounter = 0;
             clearInterval(showNoteExampleTimeout);
           }

@@ -67,7 +67,7 @@
         </div>
       </div>
       
-      <div class="piano-four slide hide">
+      <div class="piano-five slide hide">
         <h1 class="slide-head">Let's get started...</h1>
         <p class="explanation">Try and play the lower C!</p>
         <div class="slide-buttons">
@@ -94,18 +94,66 @@
       </div>
     </div>
     <div class="intro-headers">
+
       <div id="staff-intro-two" class="staff-intro-two slide hide">
         <h1 class="slide-head">This is where C is written on the staff</h1>
         <p class="explanation">Play the other notes to see where they are written on the staff</p> 
+        <div class="slide-buttons">
+          <button id="next-eight" class="slide-btn">Next</button>
+        </div>
+      </div>
+      
+      <div id="staff-intro-three" class="staff-intro-three slide hide">
+        <h1 class="slide-head">Let's talk about sharps '#' </h1>
+        <p class="explanation">'C#' for example is written on the same line as 'C' but the '#' symbol is added</p> 
+        <div class="slide-buttons">
+          <button id="back-nine" class="slide-btn">Back</button>
+          <button id="next-nine" class="slide-btn">Next</button>
+        </div>
+      </div>
+      
+      <div id="staff-intro-four" class="staff-intro-four slide hide">
+        <h1 class="slide-head">Before we play a song</h1>
+        <p class="explanation">Let's try and match the notes we put on the screen for you</p> 
+        <div class="slide-buttons">
+          <button id="back-ten" class="slide-btn">Back</button>
+          <button id="next-ten" class="slide-btn">OK!</button>
+        </div>
+      </div>
+
+      <div id="staff-intro-five" class="staff-intro-five slide hide">
+        <h1 class="slide-head">You're ready!</h1>
+        <p class="explanation">Let's play a song!</p> 
+        <div class="slide-buttons">
+          <button id="back-eleven" class="slide-btn">Back</button>
+          <button id="next-eleven" class="slide-btn">OK!</button>
+        </div>
+      </div>
+
+      <div id="staff-intro-five" class="staff-intro-five slide hide">
+        <h1 class="slide-head">You're ready!</h1>
+        <p class="explanation">See if you recognize the first part of this song</p> 
+        <div class="slide-buttons">
+          <button id="back-eleven" class="slide-btn">Back</button>
+          <button id="next-eleven" class="slide-btn">OK!</button>
+        </div>
       </div>
     </div>
 
-    <div class="leaf hide"></div>
+    <div id="guess-game-ex" class="hide">
+      <p id="guess-game-ex-p" class="guess-game-ex-p hide">Get 5 in a row to move on to the next lesson</p>
+    </div>
 
+    <div id="guess-game-ex-two" class="hide">
+      <p id="guess-game-ex-two" class="guess-game-ex-p hide">Be careful! the song restarts everytime you miss a note</p>
+    </div>
+
+    <div class="leaf hide"></div>
+    
     <div class="score-container hide">
       <span id="score-text">Score: <span id="score"></span></span>
     </div>
-
+    
     <div id="staff"class="hide">
       <div class="staff-line"></div>
       <div class="staff-line border"></div>
@@ -119,7 +167,7 @@
       <div class="staff-line"></div>
       <div class="staff-line ledger-line"></div>
     </div>
-
+    
     <div id="keyboard-options" class="hide ko-flex">
       <div class="keyboard-helper-toggle-container">
         <h2>Keyboard Helper</h2>

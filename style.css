@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Comfortaa');
 
 * {
-  box-sizing: border-box
+  box-sizing: border-box;
+  font-family:'Comfortaa', sans-serif
 }
 
 body {
@@ -96,10 +97,9 @@ h1 {
   align-items: center;
 }
 
-.staff-intro-two.slide {
-  transition: all 2s;
-  height: 177px;
-  padding: 0px;
+.intro-headers .slide {
+  height: 200px;
+  padding: 20px;
   margin-top: 57px;
 }
 
@@ -110,6 +110,32 @@ h1 {
 .intro-headers .explanation {
   margin: 16px 0 -22px;
   color: #004c61;
+}
+
+.staff-intro-two .slide-buttons{
+  justify-content: flex-end;
+}
+
+#guess-game-ex{
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+#guess-game-ex-two{
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.guess-game-ex-p{
+  position: absolute;
+  margin-top: 28px;
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #00c6ff;
+  transition: all 2s;
 }
 
 .leaf {
