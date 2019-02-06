@@ -36,6 +36,18 @@ class Note {
     this.generated = false;
     this.staffNote = document.createElement('SPAN');
     this.playIsCalled = false;
+    this.synthA = new Tone.Synth({
+      oscillator: {
+        type: 'sine'
+      },
+      envelope: {
+        attack: .1,
+        decay: 5,
+        sustain: 0,
+        release: 3
+      }
+    }).toMaster()
+    this.synthA.volume.value = -12; 
   }
 
   // function to allow different notes on the same line
@@ -85,15 +97,18 @@ class Note {
     this.gamePlay()
     // if statements to prevent multiple triggers from holing down key
     if (!this.staffLine.childElementCount){
+      this.synthA.triggerAttack(this.name)
       this.showNote();
       this.showNoteLetter();
       cssNotes[this.index].classList.add('is-active');
     } else if (this.staffLine.childElementCount == 1){
       if (this.isSharp && !this.isSameLineDifNote()){
+        this.synthA.triggerAttack(this.name)
         this.showNote();
         this.showNoteLetter();
         cssNotes[this.index].classList.add('is-active');
       } else if (!this.isSharp && this.isSameLineDifNote()){
+        this.synthA.triggerAttack(this.name)
         this.showNote();
         this.showNoteLetter();
         cssNotes[this.index].classList.add('is-active');
@@ -120,25 +135,26 @@ class Note {
 
     // remove notes from staff
     this.removeNote()
+    this.synthA.triggerRelease()
     cssNotes[this.index].classList.remove('is-active');   
   }
 }
 // make elements for each note
-const c4 = new Note('C', 7, 10, false);
-const cSharp4 = new Note('C#', 8, 10, true);
-const d4 = new Note('D', 9, 9, false);
-const dSharp4 = new Note('D#', 10, 9, true);
-const e4 = new Note('E', 11, 8, false);
-const f4 = new Note('F', 12, 7, false);
-const fSharp4 = new Note('F#', 13, 7, true);
-const g4 = new Note('G', 14, 6, false);
-const gSharp4 = new Note('G#', 15, 6, true);
-const a4 = new Note('A', 16, 5, false);
-const aSharp4 = new Note('A#', 17, 5, true);
-const b4 = new Note('B', 18, 4, false);
-const c5 = new Note('C', 19, 3, false);
-const cSharp5 = new Note('C#', 20, 3, true);
-const d5 = new Note('D', 21, 2, false);
+const c4 = new Note('C4', 7, 10, false);
+const cSharp4 = new Note('C#4', 8, 10, true);
+const d4 = new Note('D4', 9, 9, false);
+const dSharp4 = new Note('D#4', 10, 9, true);
+const e4 = new Note('E4', 11, 8, false);
+const f4 = new Note('F4', 12, 7, false);
+const fSharp4 = new Note('F#4', 13, 7, true);
+const g4 = new Note('G4', 14, 6, false);
+const gSharp4 = new Note('G#4', 15, 6, true);
+const a4 = new Note('A4', 16, 5, false);
+const aSharp4 = new Note('A#4', 17, 5, true);
+const b4 = new Note('B4', 18, 4, false);
+const c5 = new Note('C5', 19, 3, false);
+const cSharp5 = new Note('C#5', 20, 3, true);
+const d5 = new Note('D5', 21, 2, false);
 
 
 // create key press effect by toggling 'is-active' class
@@ -198,6 +214,8 @@ const everyNote = [
   g4, gSharp4, a4, aSharp4, b4, c5, cSharp5, d5,
 ];
 
+
+const someWhereOverTheRainbow = [c4, c5, b4, g4, a4, b4, c5,]
 // create note generator
 let noteGenerated = false;
 let generatedNote;
@@ -225,11 +243,13 @@ const playSong = (song, delay) => {
   const songInterval = setInterval(
     () => {
       if (placeInSong > 0) { song[placeInSong - 1].noteStop(); }
-      if (placeInSong < song.length) { song[placeInSong].notePlay(); } else {
+      if (placeInSong < song.length) { 
+        song[placeInSong].notePlay(); 
+        placeInSong += 1;
+      } else {
         placeInSong = 0;
         clearInterval(songInterval);
       }
-      placeInSong += 1;
     },
     delay,
     );
@@ -357,23 +377,51 @@ const playSong = (song, delay) => {
         },
         500,
         );
-      }
+    }
       
-      let setTimeoutCounter = 0;
-      const showNoteExample = (noteObject) => {
-        const showNoteExampleTimeout = setInterval(
-          () => {
-            if (!noteObject.playIsCalled){ noteObject.notePlay() } 
-            else { 
-              noteObject.playIsCalled = false;
-              noteObject.noteStop();
-              setTimeoutCounter++
-            }
-            if (setTimeoutCounter === 16){
-              setTimeoutCounter = 0;
-              clearInterval(showNoteExampleTimeout);
-            }
-          },
-          500
-          )
-        }
+    let setTimeoutCounter = 0;
+    const showNoteExample = (noteObject) => {
+      const showNoteExampleTimeout = setInterval(
+        () => {
+          if (!noteObject.playIsCalled){ noteObject.notePlay() } 
+          else { 
+            noteObject.playIsCalled = false;
+            noteObject.noteStop();
+            setTimeoutCounter++
+          }
+          if (setTimeoutCounter === 16){
+            setTimeoutCounter = 0;
+            clearInterval(showNoteExampleTimeout);
+          }
+        },
+        500
+        )
+    }
+
+    // var synthA = new Tone.Synth({
+    //   oscillator: {
+    //     type: 'fmsine',
+    //     modulationType: 'sine',
+    //     modulationIndex: 3,
+    //     harmonicity: 3.4
+    //   },
+    //   envelope: {
+    //     attack: 0.001,
+    //     decay: 0.1,
+    //     sustain: 0.1,
+    //     release: 0.1
+    //   }
+    // }).toMaster()
+
+    // var synthA = new Tone.Synth({
+    //   oscillator: {
+    //     type: 'triangle8'
+    //   },
+    //   envelope: {
+    //     attack: 2,
+    //     decay: 1,
+    //     sustain: 0.4,
+    //     release: 4
+    //   }
+    // }).toMaster()
+        
