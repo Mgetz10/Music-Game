@@ -90,6 +90,28 @@ h1 {
   justify-content: space-between;
 }
 
+.intro-headers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.staff-intro-two.slide {
+  transition: all 2s;
+  height: 177px;
+  padding: 0px;
+  margin-top: 57px;
+}
+
+.intro-headers h1 {
+  margin: 0;
+}
+
+.intro-headers .explanation {
+  margin: 16px 0 -22px;
+  color: #004c61;
+}
+
 .leaf {
   background: rgb(106, 154, 77);
   height: 80px;
@@ -110,7 +132,7 @@ h1 {
   font-weight: 100;
 }
 
-.staff{
+#staff{
   width: 1000px;
   margin: 80px auto 12px;
 }
@@ -276,6 +298,7 @@ h2 {
   width: 23px;
   margin-bottom: 12px;
   font-size: 1rem;
+  color: white;
 }
 
 .hide {

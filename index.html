@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div class="intro-slides">
+    <div id="intro-container" class="intro-slides">
       <div class="welcome slide hide">
         <h1 class="slide-head">Welcome to _____ !</h1>
         <p class="explanation">
@@ -27,7 +27,7 @@
       <div class="piano-one slide hide">
         <h1 class="slide-head">You will be learning alongside the piano:</h1>
         <p class="explanation">
-          The most common and visually simple instruments to conceptualize...
+          The most common and visually simple instrument to conceptualize...
         </p>
         <div class="slide-buttons">
           <button id="back-one" class="slide-btn">Back</button>
@@ -83,6 +83,21 @@
           <button id="next-six" class="slide-btn">Next</button>
         </div>
       </div>
+      
+      <div class="staff-intro slide hide">
+        <h1 class="slide-head">Let's introduce the sheet music!</h1>
+        <p class="explanation">In music theory we call the lines and spaces, where the notes get written, the 'Staff'</p>
+        <div class="slide-buttons">
+          <button id="back-seven" class="slide-btn">Back</button>
+          <button id="next-seven" class="slide-btn">Next</button>
+        </div>
+      </div>
+    </div>
+    <div class="intro-headers">
+      <div id="staff-intro-two" class="staff-intro-two slide hide">
+        <h1 class="slide-head">This is where C is written on the staff</h1>
+        <p class="explanation">Play the other notes to see where they are written on the staff</p> 
+      </div>
     </div>
 
     <div class="leaf hide"></div>
@@ -91,7 +106,7 @@
       <span id="score-text">Score: <span id="score"></span></span>
     </div>
 
-    <div class="staff hide">
+    <div id="staff"class="hide">
       <div class="staff-line"></div>
       <div class="staff-line border"></div>
       <div class="staff-line"></div>
@@ -108,7 +123,7 @@
     <div id="keyboard-options" class="hide ko-flex">
       <div class="keyboard-helper-toggle-container">
         <h2>Keyboard Helper</h2>
-        <div id="key-help-toggle" class="toggle-case tc-active">
+        <div id="key-help-toggle" class="toggle-case tc-inactive">
           <span class="toggle"></span>
         </div>
       </div>

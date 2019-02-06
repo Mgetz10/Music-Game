@@ -58,7 +58,8 @@ class Note {
   }
   
   removeNote() {
-    if (this.staffLine.childElementCount == 2){
+    if (!this.staffLine.childElementCount){} 
+    else if (this.staffLine.childElementCount == 2){
       this.staffLine.removeChild(this.staffLine.childNodes[1]); 
     } else { this.staffLine.removeChild(this.staffLine.firstChild); }
   }
@@ -264,8 +265,8 @@ const playSong = (song, delay) => {
       introHidden = true;
     }
     if (slideNumber){ introSlides[slideNumber - 1].classList.toggle('hide');}
-    if (slideNumber == 2){ keyboardSection.classList.remove('hide');}
-    if (slideNumber == 4){
+    if (slideNumber === 2){ keyboardSection.classList.remove('hide');}
+    if (slideNumber === 4){
       for (let i = 0; i < extraKeys.length; i++){
         extraKeys[i].classList.add('hide');
       }
@@ -274,72 +275,105 @@ const playSong = (song, delay) => {
       keyboardOptions.classList.remove('hide');
       highlightNote(c4);
      }
-      introSlides[slideNumber].classList.toggle('hide');
-      // introSlides[slideNumber + 1].classList.toggle('hide');
-      slideNumber++;
-  }
-
-  const backSlide = () => {
-    introSlides[slideNumber - 2].classList.toggle('hide');
-    introSlides[slideNumber -1].classList.toggle('hide');
-    slideNumber--;
-  }
-
-  const startBtn = document.getElementById('start-btn');
-  startBtn.addEventListener('click', introSlide, false);
-
-  const gotIt = document.getElementById('got-it');
-  gotIt.addEventListener('click', introSlide, false);
-
-  const backBtnOne = document.getElementById('back-one');
-  const nextBtnOne = document.getElementById('next-one');
-  backBtnOne.addEventListener('click', backSlide, false);
-  nextBtnOne.addEventListener('click', introSlide, false);
-  
-  const keyboardSection = document.getElementById('keyboard-section');
-
-  const backBtnTwo = document.getElementById('back-two');
-  const nextBtnTwo = document.getElementById('next-two');
-  backBtnTwo.addEventListener('click', backSlide, false);
-  nextBtnTwo.addEventListener('click', introSlide, false);
-
-  const backBtnThree = document.getElementById('back-three');
-  const nextBtnThree = document.getElementById('next-three');
-  backBtnThree.addEventListener('click', backSlide, false);
-  nextBtnThree.addEventListener('click', introSlide, false);
-  
-  const backBtnFour = document.getElementById('back-four');
-  const nextBtnFour = document.getElementById('next-four');
-  backBtnFour.addEventListener('click', backSlide, false);
-  nextBtnFour.addEventListener('click', introSlide, false);
-  
-  const backBtnFive = document.getElementById('back-five');
-  backBtnFive.addEventListener('click', backSlide, false);
-  
-  const backBtnSix = document.getElementById('back-six');
-  const nextBtnSix = document.getElementById('next-six');
-  backBtnSix.addEventListener('click', backSlide, false);
-  nextBtnSix.addEventListener('click', introSlide, false);
-
-  let extraKeys = document.getElementsByClassName('ex')
-
-  let walkthrough = false;
-
-  let keyboardOptions = document.getElementById('keyboard-options');
-
-  const highlightNote = (noteObject) => {
-    const flashingNote = setInterval(
-      () => {
-        cssNotes[noteObject.index].classList.toggle('key-highlight')
-        if(noteObject.playIsCalled){
-          if (cssNotes[noteObject.index].className.includes('key-highlight')){
-            cssNotes[noteObject.index].classList.remove('key-highlight');
-          }
-          noteObject.playIsCalled = false;
-          introSlide();
-          clearInterval(flashingNote)
-        }
-      },
-      500,
-      );
+     if (slideNumber === 8){
+      staff.classList.remove('hide')
+      introContainer.classList.add('hide');
+      showNoteExample(c4);
     }
+      introSlides[slideNumber].classList.toggle('hide');
+      
+      slideNumber++;
+    }
+    
+    const backSlide = () => {
+      introSlides[slideNumber - 2].classList.toggle('hide');
+      introSlides[slideNumber -1].classList.toggle('hide');
+      slideNumber--;
+    }
+    
+    const startBtn = document.getElementById('start-btn');
+    startBtn.addEventListener('click', introSlide, false);
+    
+    const gotIt = document.getElementById('got-it');
+    gotIt.addEventListener('click', introSlide, false);
+    
+    const backBtnOne = document.getElementById('back-one');
+    const nextBtnOne = document.getElementById('next-one');
+    backBtnOne.addEventListener('click', backSlide, false);
+    nextBtnOne.addEventListener('click', introSlide, false);
+    
+    const keyboardSection = document.getElementById('keyboard-section');
+    
+    const backBtnTwo = document.getElementById('back-two');
+    const nextBtnTwo = document.getElementById('next-two');
+    backBtnTwo.addEventListener('click', backSlide, false);
+    nextBtnTwo.addEventListener('click', introSlide, false);
+    
+    const backBtnThree = document.getElementById('back-three');
+    const nextBtnThree = document.getElementById('next-three');
+    backBtnThree.addEventListener('click', backSlide, false);
+    nextBtnThree.addEventListener('click', introSlide, false);
+    
+    const backBtnFour = document.getElementById('back-four');
+    const nextBtnFour = document.getElementById('next-four');
+    backBtnFour.addEventListener('click', backSlide, false);
+    nextBtnFour.addEventListener('click', introSlide, false);
+    
+    const backBtnFive = document.getElementById('back-five');
+    backBtnFive.addEventListener('click', backSlide, false);
+    
+    const backBtnSix = document.getElementById('back-six');
+    const nextBtnSix = document.getElementById('next-six');
+    backBtnSix.addEventListener('click', backSlide, false);
+    nextBtnSix.addEventListener('click', introSlide, false);
+    
+    const backBtnSeven = document.getElementById('back-seven');
+    const nextBtnSeven = document.getElementById('next-seven');
+    backBtnSeven.addEventListener('click', backSlide, false);
+    nextBtnSeven.addEventListener('click', introSlide, false);
+    
+    let extraKeys = document.getElementsByClassName('ex')
+    
+    let walkthrough = false;
+    
+    let keyboardOptions = document.getElementById('keyboard-options');
+    
+    const staffHTML = document.getElementById('staff');
+    
+    const introContainer = document.getElementById('intro-container');
+    
+    const highlightNote = (noteObject) => {
+      const flashingNote = setInterval(
+        () => {
+          cssNotes[noteObject.index].classList.toggle('key-highlight')
+          if(noteObject.playIsCalled){
+            if (cssNotes[noteObject.index].className.includes('key-highlight')){
+              cssNotes[noteObject.index].classList.remove('key-highlight');
+            }
+            noteObject.playIsCalled = false;
+            introSlide();
+            clearInterval(flashingNote)
+          }
+        },
+        500,
+        );
+      }
+      
+      let setTimeoutCounter = 0;
+      const showNoteExample = (noteObject) => {
+        const showNoteExampleTimeout = setInterval(
+          () => {
+            if (!noteObject.playIsCalled){ noteObject.notePlay() } 
+            else { 
+              noteObject.playIsCalled = false;
+              noteObject.noteStop();
+              setTimeoutCounter++
+            }
+            if (setTimeoutCounter === 16){
+              setTimeoutCounter = 0;
+              clearInterval(showNoteExampleTimeout);
+            }
+          },
+          500
+          )
+        }
