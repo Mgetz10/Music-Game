@@ -142,12 +142,48 @@ h1 {
   transition: all 2s;
 }
 
-.plant-progress {
+#plant-progress {
   position: absolute;
   width: 222px;
   height: 347px;
   bottom: 4%;
   left: 3%;
+}
+
+.pot {
+  background-color: orange;
+  position: absolute;
+  height: 50px;
+  width: 70px;
+  bottom: 0%;
+  left: 48%;
+  border: 1px solid black;
+  border-radius: 0 0 22px 22px;
+}
+
+.pot-top {
+  background-color: orange;
+  position: absolute;
+  height: 21px;
+  width: 80px;
+  bottom: 14%;
+  left: 46%;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.sprout-one {
+  background: rgb(106, 154, 77);
+  height: 40px;
+  width: 40px;
+  border: 1px solid #1f14088f;
+  border-radius: 90px 0px 92px 10px;
+  position: absolute;
+  z-index: -1;
+  bottom: 14%;
+  left: 63%;
+  transform: rotate(-6deg);
+  transition: all 2s;
 }
 
 .leaf-one {
@@ -157,11 +193,26 @@ h1 {
   border: 1px solid #1f14088f;
   border-radius: 90px 0px 92px 10px;
   position: absolute;
+  z-index: -1;
   bottom: 21%;
-  left: 60%;
-  transform: skewX(-14deg);
+  left: 70%;
+  transform: rotate(22deg);
+  transition: all 2s;
 }
 
+.sprout-two {
+  background: rgb(106, 154, 77);
+  height: 40px;
+  width: 40px;
+  border: 1px solid #1f14088f;
+  border-radius: 0px 90px 10px 92px;
+  position: absolute;
+  z-index: -2;
+  bottom: 27%;
+  left: 62%;
+  transform: rotate(55deg);
+  transition: all 2s;
+}
 .leaf-two {
   background: rgb(106, 154, 77);
   height: 65px;
@@ -169,11 +220,26 @@ h1 {
   border: 1px solid #1f14088f;
   border-radius: 0px 90px 10px 92px;
   position: absolute;
-  bottom: 32%;
-  left: 25%;
-  transform: skewX(14deg);
+  z-index: -2;
+  bottom: 26%;
+  left: 29%;
+  transform: rotate(-23deg);
+  transition: all 2s;
 }
 
+.sprout-three {
+  background: rgb(106, 154, 77);
+  height: 40px;
+  width: 40px;
+  border: 1px solid #1f14088f;
+  border-radius: 90px 0px 92px 10px;
+  position: absolute;
+  z-index: -3;
+  bottom: 33%;
+  left: 47%;
+  transform: rotate(-70deg);
+  transition: all 2s;
+}
 .leaf-three {
   background: rgb(106, 154, 77);
   height: 60px;
@@ -181,10 +247,27 @@ h1 {
   border: 1px solid #1f14088f;
   border-radius: 90px 0px 92px 10px;
   position: absolute;
-  left: 67%;
-  bottom: 43%;
-  transform: rotate(0deg)
+  z-index: -3;
+  left: 70%;
+  bottom: 39%;
+  transform: rotate(13deg);
+  transition: all 2s;
 }
+
+.sprout-four {
+  background: rgb(106, 154, 77);
+  height: 40px;
+  width: 40px;
+  border: 1px solid #1f14088f;
+  border-radius: 0px 90px 10px 92px;
+  position: absolute;
+  z-index: -4;
+  bottom: 43%;
+  left: 64%;
+  transform: rotate(55deg);
+  transition: all 2s;
+}
+
 
 .leaf-four {
   background: rgb(106, 154, 77);
@@ -193,11 +276,26 @@ h1 {
   border: 1px solid #1f14088f;
   border-radius: 0px 90px 10px 92px;
   position: absolute;
+  z-index: -4;
   left: 36%;
-  bottom: 50%;
-  transform: rotate(16deg);
+  bottom: 45%;
+  transform: rotate(-10deg);
+  transition: all 2s;
 }
 
+.sprout-five {
+  background: rgb(106, 154, 77);
+  height: 40px;
+  width: 40px;
+  border: 1px solid #1f14088f;
+  border-radius: 90px 0px 92px 10px;
+  position: absolute;
+  z-index: -5;
+  bottom: 48%;
+  left: 48%;
+  transform: rotate(-67deg);
+  transition: all 2s;
+}
 .leaf-five {
   background: rgb(106, 154, 77);
   height: 50px;
@@ -205,9 +303,11 @@ h1 {
   border: 1px solid #1f14088f;
   border-radius: 90px 0px 92px 10px;
   position: absolute;
-  left: 56%;
-  bottom: 63%;
+  z-index: -5;
+  left: 64%;
+  bottom: 61%;
   transform: rotate(-28deg);
+  transition: all 2s;
 }
 
 .score-container {

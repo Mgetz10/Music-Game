@@ -88,8 +88,13 @@ class Note {
       }
       score.innerHTML = scoreCounter;
       if (noteGenerated){
+        leaves[scoreCounter].classList.remove(`sprout-${leafNumber[scoreCounter]}`)
+        leaves[scoreCounter].classList.add(`leaf-${leafNumber[scoreCounter]}`)
         scoreCounter += 1
         noteGenerated = false;
+        setTimeout(() => {
+          leaves[scoreCounter].classList.remove('hide');
+        }, 2000);
         if (scoreCounter === 5){ 
           scoreCounter = 0;
           introSlide();
@@ -106,7 +111,26 @@ class Note {
       }
     } else if(noteGenerated){ 
       generatedNote.removeNote();
-      scoreCounter = 0;
+      console.log('test');
+      if (scoreCounter > 0){
+        leaves[scoreCounter].classList.add('hide');
+        scoreCounter--
+        leaves[scoreCounter].classList.remove(`leaf-${leafNumber[scoreCounter]}`)
+        leaves[scoreCounter].classList.add(`sprout-${leafNumber[scoreCounter]}`)
+      }
+      const plantShrink = setInterval(
+        () => {
+          if (scoreCounter > 0) { 
+            leaves[scoreCounter].classList.add('hide');
+            scoreCounter--
+            leaves[scoreCounter].classList.remove(`leaf-${leafNumber[scoreCounter]}`)
+            leaves[scoreCounter].classList.add(`sprout-${leafNumber[scoreCounter]}`)
+          } else {
+            clearInterval(plantShrink);
+          }
+        },
+        2000,
+        );
       alphaChannel += 0.2;
       generatedNote.showNote();
     } else if(songGenerated){
@@ -447,6 +471,8 @@ const playSong = (song, delay) => {
     const nextBtnTen = document.getElementById('next-ten');
     backBtnTen.addEventListener('click', backSlide, false);
     nextBtnTen.addEventListener('click', () => {
+      plantProgress.classList.remove('hide');
+      leaves[0].classList.remove('hide');
       guessGameEx.classList.remove('hide');
       guessGameExP.classList.remove('hide');
       generateNote();
@@ -468,11 +494,14 @@ const playSong = (song, delay) => {
     let keyboardOptions = document.getElementById('keyboard-options');
     
     const staffHTML = document.getElementById('staff');
-    const guessGameEx = document.getElementById('guess-game-ex')
-    const guessGameExP = document.getElementById('guess-game-ex-p')
-    const guessGameExTwo = document.getElementById('guess-game-ex-two')
-    const guessGameExPTwo = document.getElementById('guess-game-ex-p-two')
+    const guessGameEx = document.getElementById('guess-game-ex');
+    const guessGameExP = document.getElementById('guess-game-ex-p');
+    const guessGameExTwo = document.getElementById('guess-game-ex-two');
+    const guessGameExPTwo = document.getElementById('guess-game-ex-p-two');
     const introContainer = document.getElementById('intro-container');
+    const plantProgress = document.getElementById('plant-progress');
+    const leaves = document.getElementsByClassName('leaves');
+    const leafNumber = ['one', 'two', 'three', 'four', 'five'];
     
     const highlightNote = (noteObject) => {
       const flashingNote = setInterval(
