@@ -23,6 +23,9 @@ body {
 h1 {
   color: rgb(106, 154, 77);
   text-align: center;
+  font-size: 2.3rem;
+  line-height: 51px;
+  margin: 10px 0;
 }
 
 .start-btn-container{
@@ -51,7 +54,7 @@ h1 {
   background: white;
   border: 1px solid;
   border-radius: 10px;
-  height: 416px;
+  height: 407px;
   width: 650px;
   display: flex;
   flex-direction: column;
@@ -63,7 +66,7 @@ h1 {
 
 .explanation {
   font-size: 1.5rem;
-  margin-top: 63px;
+  margin-top: 32px;
   line-height: 52px;
   padding: 0 59px;
 }
@@ -98,17 +101,18 @@ h1 {
 }
 
 .intro-headers .slide {
-  height: 200px;
+  height: 211px;
   padding: 20px;
   margin-top: 57px;
 }
 
 .intro-headers h1 {
-  margin: 0;
+  margin: -6px 0 12px;
+  font-size: 2rem;
 }
 
 .intro-headers .explanation {
-  margin: 16px 0 -22px;
+  margin: -5px 0 -9px;
   color: #004c61;
 }
 
@@ -138,13 +142,72 @@ h1 {
   transition: all 2s;
 }
 
-.leaf {
+.plant-progress {
+  position: absolute;
+  width: 222px;
+  height: 347px;
+  bottom: 4%;
+  left: 3%;
+}
+
+.leaf-one {
   background: rgb(106, 154, 77);
-  height: 80px;
-  width: 80px;
+  height: 70px;
+  width: 70px;
   border: 1px solid #1f14088f;
   border-radius: 90px 0px 92px 10px;
   position: absolute;
+  bottom: 21%;
+  left: 60%;
+  transform: skewX(-14deg);
+}
+
+.leaf-two {
+  background: rgb(106, 154, 77);
+  height: 65px;
+  width: 65px;
+  border: 1px solid #1f14088f;
+  border-radius: 0px 90px 10px 92px;
+  position: absolute;
+  bottom: 32%;
+  left: 25%;
+  transform: skewX(14deg);
+}
+
+.leaf-three {
+  background: rgb(106, 154, 77);
+  height: 60px;
+  width: 60px;
+  border: 1px solid #1f14088f;
+  border-radius: 90px 0px 92px 10px;
+  position: absolute;
+  left: 67%;
+  bottom: 43%;
+  transform: rotate(0deg)
+}
+
+.leaf-four {
+  background: rgb(106, 154, 77);
+  height: 55px;
+  width: 55px;
+  border: 1px solid #1f14088f;
+  border-radius: 0px 90px 10px 92px;
+  position: absolute;
+  left: 36%;
+  bottom: 50%;
+  transform: rotate(16deg);
+}
+
+.leaf-five {
+  background: rgb(106, 154, 77);
+  height: 50px;
+  width: 50px;
+  border: 1px solid #1f14088f;
+  border-radius: 90px 0px 92px 10px;
+  position: absolute;
+  left: 56%;
+  bottom: 63%;
+  transform: rotate(-28deg);
 }
 
 .score-container {
@@ -160,7 +223,16 @@ h1 {
 
 #staff{
   width: 1000px;
-  margin: 80px auto 12px;
+  margin: 7% auto 1%;
+  position: relative;
+}
+
+.treble-clef {
+  font-size: 17rem;
+  position: absolute;
+  top: 32%;
+  color: #5b9c41;
+  text-shadow: 0 0 3px #0000007a;
 }
 
 .staff-line {
@@ -194,6 +266,7 @@ h1 {
   width: 45px;
   height: 28px;
   transform: skewX(7deg);
+  box-shadow: 0 0 2px #0000007a, inset 0 0 2px #0000007a;
 }
 
 .whole-note.sharp{
@@ -227,7 +300,7 @@ h1 {
   border-bottom: 2px solid;
   width: 52px;
   position: absolute;
-  border-color: black;
+  border-color: #246931bd;
   margin-left: -16px;
   margin-top: 11px;
   z-index: -1;

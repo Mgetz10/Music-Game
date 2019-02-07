@@ -377,6 +377,9 @@ const playSong = (song, delay) => {
       guessGameEx.classList.add('hide');
       guessGameExP.classList.add('hide');
     }
+    if (slideNumber === 12)
+      guessGameExTwo.classList.add('hide');
+      guessGameExPTwo.classList.add('hide');
       introSlides[slideNumber].classList.toggle('hide');
       
       slideNumber++;
