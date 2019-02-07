@@ -90,23 +90,9 @@ class Note {
         leaves[scoreCounter].classList.add(`leaf-${leafNumber[scoreCounter]}`)
         scoreCounter += 1
         noteGenerated = false;
-
-        //leaves[scoreCounter].classList.remove('hide')
-        //(setTimeout(()=>{
-        //  leaves[scoreCounter].classList.remove('hide')
-        //},2000)
-
-        
-        (function(scoreCounter){
-          let score = scoreCounter
-          setTimeout(()=>{
-            console.log(scoreCounter)
-            //console.log(leaves[scoreCounter])
-            leaves[scoreCounter].classList.remove('hideLeaf');
-
-          },2000)
-        })(scoreCounter)
-
+        setTimeout((scoreCounter) => {
+          leaves[scoreCounter].classList.remove('hide');
+        }, 2000)(scoreCounter);
         if (scoreCounter === 5){ 
           scoreCounter = 0;
           introSlide();
@@ -124,20 +110,16 @@ class Note {
     } else if(noteGenerated){ 
       generatedNote.removeNote();
       console.log('test');
-      clearTimeout()
       if (scoreCounter > 0){
-        leaves[scoreCounter].classList.add('hideLeaf');
+        leaves[scoreCounter].classList.add('hide');
         scoreCounter--
         leaves[scoreCounter].classList.remove(`leaf-${leafNumber[scoreCounter]}`)
         leaves[scoreCounter].classList.add(`sprout-${leafNumber[scoreCounter]}`)
       }
-      
-      
       const plantShrink = setInterval(
-
         () => {
-          if (scoreCounter > 0) {
-            leaves[scoreCounter].classList.add('hideLeaf');
+          if (scoreCounter > 0) { 
+            leaves[scoreCounter].classList.add('hide');
             scoreCounter--
             leaves[scoreCounter].classList.remove(`leaf-${leafNumber[scoreCounter]}`)
             leaves[scoreCounter].classList.add(`sprout-${leafNumber[scoreCounter]}`)
@@ -431,20 +413,6 @@ const playSong = (song, delay) => {
       if (slideNumber === 7){
         highlightNote(c4);
       }
-      if (slideNumber === 10){
-        showNoteExample(c4);
-      }
-      if (slideNumber === 11){
-        plantProgress.classList.add('hide');
-        leaves[0].classList.add('hideLeaf');
-        guessGameEx.classList.add('hide');
-        guessGameExP.classList.add('hide');
-        generatedNote.removeNote();
-        generatedNote.generated = false;
-        noteGenerated = false;
-
-        showNoteExample(cSharp4);
-      }
       slideNumber--;
     }
     
@@ -502,7 +470,7 @@ const playSong = (song, delay) => {
     backBtnTen.addEventListener('click', backSlide, false);
     nextBtnTen.addEventListener('click', () => {
       plantProgress.classList.remove('hide');
-      leaves[0].classList.remove('hideLeaf');
+      leaves[0].classList.remove('hide');
       guessGameEx.classList.remove('hide');
       guessGameExP.classList.remove('hide');
       generateNote();

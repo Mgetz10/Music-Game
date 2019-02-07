@@ -150,6 +150,12 @@ h1 {
   left: 3%;
 }
 
+.leaves{
+  border: 1px solid #1f14088f;
+  background: rgb(106, 154, 77);
+  text-shadow: 0 0 3px #0000007a;
+}
+
 .pot {
   background-color: orange;
   position: absolute;
@@ -159,6 +165,7 @@ h1 {
   left: 48%;
   border: 1px solid black;
   border-radius: 0 0 22px 22px;
+  box-shadow: 0 0 3px #0000007a;
 }
 
 .pot-top {
@@ -170,13 +177,12 @@ h1 {
   left: 46%;
   border: 1px solid black;
   border-radius: 4px;
+  text-shadow: 0 0 3px #0000007a;
 }
 
 .sprout-one {
-  background: rgb(106, 154, 77);
   height: 40px;
   width: 40px;
-  border: 1px solid #1f14088f;
   border-radius: 90px 0px 92px 10px;
   position: absolute;
   z-index: -1;
@@ -187,10 +193,8 @@ h1 {
 }
 
 .leaf-one {
-  background: rgb(106, 154, 77);
   height: 70px;
   width: 70px;
-  border: 1px solid #1f14088f;
   border-radius: 90px 0px 92px 10px;
   position: absolute;
   z-index: -1;
@@ -201,10 +205,8 @@ h1 {
 }
 
 .sprout-two {
-  background: rgb(106, 154, 77);
   height: 40px;
   width: 40px;
-  border: 1px solid #1f14088f;
   border-radius: 0px 90px 10px 92px;
   position: absolute;
   z-index: -2;
@@ -214,10 +216,8 @@ h1 {
   transition: all 2s;
 }
 .leaf-two {
-  background: rgb(106, 154, 77);
   height: 65px;
   width: 65px;
-  border: 1px solid #1f14088f;
   border-radius: 0px 90px 10px 92px;
   position: absolute;
   z-index: -2;
@@ -228,10 +228,8 @@ h1 {
 }
 
 .sprout-three {
-  background: rgb(106, 154, 77);
   height: 40px;
   width: 40px;
-  border: 1px solid #1f14088f;
   border-radius: 90px 0px 92px 10px;
   position: absolute;
   z-index: -3;
@@ -241,10 +239,8 @@ h1 {
   transition: all 2s;
 }
 .leaf-three {
-  background: rgb(106, 154, 77);
   height: 60px;
   width: 60px;
-  border: 1px solid #1f14088f;
   border-radius: 90px 0px 92px 10px;
   position: absolute;
   z-index: -3;
@@ -255,10 +251,8 @@ h1 {
 }
 
 .sprout-four {
-  background: rgb(106, 154, 77);
   height: 40px;
   width: 40px;
-  border: 1px solid #1f14088f;
   border-radius: 0px 90px 10px 92px;
   position: absolute;
   z-index: -4;
@@ -270,10 +264,8 @@ h1 {
 
 
 .leaf-four {
-  background: rgb(106, 154, 77);
   height: 55px;
   width: 55px;
-  border: 1px solid #1f14088f;
   border-radius: 0px 90px 10px 92px;
   position: absolute;
   z-index: -4;
@@ -284,10 +276,8 @@ h1 {
 }
 
 .sprout-five {
-  background: rgb(106, 154, 77);
   height: 40px;
   width: 40px;
-  border: 1px solid #1f14088f;
   border-radius: 90px 0px 92px 10px;
   position: absolute;
   z-index: -5;
@@ -297,10 +287,8 @@ h1 {
   transition: all 2s;
 }
 .leaf-five {
-  background: rgb(106, 154, 77);
   height: 50px;
   width: 50px;
-  border: 1px solid #1f14088f;
   border-radius: 90px 0px 92px 10px;
   position: absolute;
   z-index: -5;
@@ -502,6 +490,9 @@ h2 {
 
 .hide {
   display: none;
+}
+.hideLeaf{
+  opacity: 0;
 }
 
 .key-letter {
