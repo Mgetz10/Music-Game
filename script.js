@@ -108,6 +108,10 @@ class Note {
         })(scoreCounter)
 
         if (scoreCounter === 5){ 
+          c4.notePlay;
+          e4.notePlay;
+          g4.notePlay;
+          c5.notePlay;
           scoreCounter = 0;
           introSlide();
         } 
