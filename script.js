@@ -108,10 +108,19 @@ class Note {
         })(scoreCounter)
 
         if (scoreCounter === 5){ 
-          c4.notePlay;
-          e4.notePlay;
-          g4.notePlay;
-          c5.notePlay;
+          setTimeout(() => {
+            c4.notePlay();
+            e4.notePlay();
+            g4.notePlay();
+            c5.notePlay();
+          }, 800)
+          
+          setTimeout(() => {
+            c4.noteStop();
+            e4.noteStop();
+            g4.noteStop();
+            c5.noteStop();
+          }, 2200)
           scoreCounter = 0;
           introSlide();
         } 
