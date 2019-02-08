@@ -134,7 +134,6 @@ class Note {
       
       
       const plantShrink = setInterval(
-
         () => {
           if (scoreCounter > 0) {
             leaves[scoreCounter].classList.add('hideLeaf');
@@ -445,6 +444,22 @@ const playSong = (song, delay) => {
 
         showNoteExample(cSharp4);
       }
+
+      if (slideNumber === 13){
+        const plantShrink = setInterval(
+          () => {
+            if (scoreCounter > 0) {
+              leaves[scoreCounter].classList.add('hideLeaf');
+              scoreCounter--
+              leaves[scoreCounter].classList.remove(`leaf-${leafNumber[scoreCounter]}`)
+              leaves[scoreCounter].classList.add(`sprout-${leafNumber[scoreCounter]}`)
+            } else {
+              clearInterval(plantShrink);
+            }
+          },
+          2000,
+          );
+      }
       slideNumber--;
     }
     
@@ -516,6 +531,10 @@ const playSong = (song, delay) => {
       guessGameExPTwo.classList.remove('hide');
       generateSong(someWhereOverTheRainbow)
     }, false);
+
+    const backBtnTwelve = document.getElementById('back-twelve');
+    const nextBtnTwelve = document.getElementById('next-twelve');
+    backBtnTwelve.addEventListener('click', backSlide, false);
 
     let extraKeys = document.getElementsByClassName('ex')
     
