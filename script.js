@@ -96,7 +96,9 @@ class Note {
         scoreCounter += 1;
         noteGenerated = false;
 
-        leaves[scoreCounter].classList.remove('hideLeaf');
+        if (scoreCounter < 5) {
+          leaves[scoreCounter].classList.remove('hideLeaf');
+        }
 
         if (scoreCounter === 5) {
           setTimeout(() => {
