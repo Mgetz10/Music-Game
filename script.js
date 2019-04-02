@@ -6,10 +6,6 @@
     animationsdd
     levels
     level progress meters
-* add sounds
-    this.audio = new Audio(audio);
-    this.audio.volume = 1;
-    this.audio.play();
 * improve style
 * improve sharp/flat system
 * add dynamic chord positioning
@@ -197,19 +193,6 @@ class Note {
   }
 
   noteStop() {
-    //   const fadeInterval = setInterval(
-    //     () => {
-    //     if(this.audio.volume <= 0.1){
-    //         this.audio.volume = 0
-    //         this.audio.pause()
-    //         this.audio.currentTime = 0;
-    //         clearInterval(fadeInterval);
-    //         return;
-    //     }
-    //     console.log("still")
-    //     this.audio.volume -= 0.1;
-    // }, 10);
-
     // remove notes from staff
     this.removeNote();
     this.synthA.triggerRelease();
@@ -673,30 +656,3 @@ const showNoteExample = noteObject => {
     }
   }, 500);
 };
-
-// var synthA = new Tone.Synth({
-//   oscillator: {
-//     type: 'fmsine',
-//     modulationType: 'sine',
-//     modulationIndex: 3,
-//     harmonicity: 3.4
-//   },
-//   envelope: {
-//     attack: 0.001,
-//     decay: 0.1,
-//     sustain: 0.1,
-//     release: 0.1
-//   }
-// }).toMaster()
-
-// var synthA = new Tone.Synth({
-//   oscillator: {
-//     type: 'triangle8'
-//   },
-//   envelope: {
-//     attack: 2,
-//     decay: 1,
-//     sustain: 0.4,
-//     release: 4
-//   }
-// }).toMaster()
