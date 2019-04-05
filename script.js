@@ -19,6 +19,8 @@ const domStaffLines = document.getElementsByClassName('staff-line');
 
 let alphaChannel = 0;
 // create note class
+
+//Note class
 class Note {
   constructor(name, nameNumber, index, staffPosition, isSharp) {
     this.name = name;
@@ -31,6 +33,8 @@ class Note {
     this.generated = false;
     this.staffNote = document.createElement('SPAN');
     this.playIsCalled = false;
+
+    //Synth
     this.synthA = new Tone.Synth({
       oscillator: {
         type: 'sine'
@@ -51,7 +55,7 @@ class Note {
   }
 
   showNote() {
-    // creat new span
+    // create new span
     this.staffLine.appendChild(this.staffNote);
     this.staffNote.classList.add('whole-note');
     this.staffNote.setAttribute('id', this.domID);
