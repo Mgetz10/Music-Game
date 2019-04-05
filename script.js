@@ -3,7 +3,6 @@
 /* to-do
 * add music theory explanation
 * add rewards
-    animationsdd
     levels
     level progress meters
 * improve style
