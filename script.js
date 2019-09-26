@@ -630,6 +630,7 @@ const leaves = document.getElementsByClassName('leaves');
 const leafNumber = ['one', 'two', 'three', 'four', 'five'];
 
 const highlightNote = noteObject => {
+  noteObject.playIsCalled = false;
   const flashingNote = setInterval(() => {
     cssNotes[noteObject.index].classList.toggle('key-highlight');
     if (noteObject.playIsCalled) {
